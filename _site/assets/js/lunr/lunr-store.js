@@ -198,7 +198,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Layout: Post with Nested Table of Contents via Helper",
-        "excerpt":"Tests table of contents with multiple levels to verify indentation is readible via helper include (deprecated). {% include toc %} On this page Enim laboris id ea elit elit deserunt 2 Sit adipisicing tempor duis velit cupidatat occaecat do amet 2.1 Ex et quis exercitation fugiat excepteur eiusmod mollit consequat...","categories": [],
+        "excerpt":"Tests table of contents with multiple levels to verify indentation is readible via helper include (deprecated). {% include toc %} On This Page Enim laboris id ea elit elit deserunt 2 Sit adipisicing tempor duis velit cupidatat occaecat do amet 2.1 Ex et quis exercitation fugiat excepteur eiusmod mollit consequat...","categories": [],
         "tags": ["table of contents"],
         "url": "http://localhost:4000/layout-table-of-contents-include-post/",
         "teaser": null

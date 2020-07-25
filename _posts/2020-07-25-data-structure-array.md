@@ -5,6 +5,7 @@ categories:
 tags:
   - programming
   - 자료구조
+  - 배열
 ---
 
 ![alt]({{ site.url }}{{ site.baseurl }}/assets/images/ds1-array-intro.JPG)
@@ -166,11 +167,11 @@ __Python STYLE__
 
 ```python
 expr_matrix= [
-      //gene1, gene2, gene3, gene4
-    [ 0.9,   0.27,  0.5,   0.6], // cell A
-    [ 0.7,   0.97,  0.6,   0.0], // cell B
-    [ 0.5,   0.37,  0.1,   0.8], // cell C
-    [ 0.8,   0.17,  0.4,   0.2]  // cell D
+    # gene1, gene2, gene3, gene4
+    [ 0.9,   0.27,  0.5,   0.6], # cell A
+    [ 0.7,   0.97,  0.6,   0.0], # cell B
+    [ 0.5,   0.37,  0.1,   0.8], # cell C
+    [ 0.8,   0.17,  0.4,   0.2]  # cell D
 ]
 
 cellA = expr_matrix[0]
@@ -190,7 +191,8 @@ import pandas as pd
 # Reading matrix file
 df = pd.read_csv("gene_expression.csv")
 
-# convert to numpy matrix (pandas itself can do this but wanted to be clear)
+# convert to numpy matrix 
+# (pandas itself can do this but wanted to be clear)
 matrix = df.to_numpy()
 
 cellA = matrix[1]

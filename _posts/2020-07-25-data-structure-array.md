@@ -15,7 +15,7 @@ __배열(Array)__ 이란 위키피디아에 따르면 다음과 같다
 
 > In computer science, an array data structure, or simply an array, is a data structure consisting of a collection of elements (values or variables), each identified by at least one array index or key. An array is stored such that the position of each element can be computed from its index tuple by a mathematical formula. The simplest type of data structure is a linear array, also called one-dimensional array.
 
-엄청 긴 설명인데, 요약하자면 __자료의 나열__이라고 할 수 있겟다.
+엄청 긴 설명인데, 요약하자면 __자료의 나열__ 이라고 할 수 있겟다.
 
 처음에 있는 그림을 보면서 설명하면, 다음과 같다
 

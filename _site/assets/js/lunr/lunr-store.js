@@ -16,4 +16,10 @@ var store = [{
         "tags": ["programming","일반"],
         "url": "http://localhost:4000/programming-style/",
         "teaser": null
+      },{
+        "title": "자료구조(1) - 배열(Array)",
+        "excerpt":"배열(Array) 이란 위키피디아에 따르면 다음과 같다 In computer science, an array data structure, or simply an array, is a data structure consisting of a collection of elements (values or variables), each identified by at least one array index or key. An array is stored such that the position of each...","categories": ["programming"],
+        "tags": ["programming","자료구조"],
+        "url": "http://localhost:4000/programming/data-structure-array/",
+        "teaser": null
       }]

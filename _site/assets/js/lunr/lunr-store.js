@@ -19,7 +19,13 @@ var store = [{
       },{
         "title": "자료구조(1) - 배열(Array)",
         "excerpt":"배열(Array) 이란 위키피디아에 따르면 다음과 같다 In computer science, an array data structure, or simply an array, is a data structure consisting of a collection of elements (values or variables), each identified by at least one array index or key. An array is stored such that the position of each...","categories": ["programming"],
-        "tags": ["programming","자료구조"],
+        "tags": ["programming","자료구조","배열"],
         "url": "http://localhost:4000/programming/data-structure-array/",
+        "teaser": null
+      },{
+        "title": "리스트(1) - 배열을 이용한 리스트",
+        "excerpt":"리스트 는 이전 시간에 포스팅한 배열과 개념이 비슷하다. 다만 리스트는 배열과 달리 가변적인 길이 를 가질 수 있다는 것이다. 리스트가 종요한 자료형인 이유는 나중에 배울 스택, 큐, 트리, 그래프와 같은 다른 자료형들을 구현하는 기본이 된다는 점이다. 배열처럼 자료를 순서대로 저장하는 구조이기 때문에 배열에서 설명한 것은 생략한다. 리스트를 구현하는 방법은 2가지가...","categories": ["programming"],
+        "tags": ["programming","자료구조","리스트"],
+        "url": "http://localhost:4000/programming/array-list/",
         "teaser": null
       }]

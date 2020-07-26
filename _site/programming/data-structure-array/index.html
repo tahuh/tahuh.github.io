@@ -309,15 +309,15 @@
   <p>In computer science, an array data structure, or simply an array, is a data structure consisting of a collection of elements (values or variables), each identified by at least one array index or key. An array is stored such that the position of each element can be computed from its index tuple by a mathematical formula. The simplest type of data structure is a linear array, also called one-dimensional array.</p>
 </blockquote>
 
-<p>엄청 긴 설명인데, 요약하자면 __자료의 나열__이라고 할 수 있겟다.</p>
+<p>엄청 긴 설명인데, 요약하자면 <strong>자료의 나열</strong> 이라고 할 수 있겟다.</p>
 
 <p>처음에 있는 그림을 보면서 설명하면, 다음과 같다</p>
 
 <p>배열(<code class="language-plaintext highlighter-rouge">arr</code>)은 데이터를 담는 용기다.</p>
 
-<p>이 용기는 특이하게 생겼는데 총 __4개__의 작은 __박스__가 연결된 형태로 구성되어 있다.</p>
+<p>이 용기는 특이하게 생겼는데 총 <strong>4개</strong> 의 작은 <strong>박스</strong> 가 연결된 형태로 구성되어 있다.</p>
 
-<p>각각의 박스에는 <code class="language-plaintext highlighter-rouge">A</code>,<code class="language-plaintext highlighter-rouge">B</code>,<code class="language-plaintext highlighter-rouge">C</code>,<code class="language-plaintext highlighter-rouge">D</code>의 __데이터__가 들어 있고 __박스의 이름__은 <code class="language-plaintext highlighter-rouge">0</code>,<code class="language-plaintext highlighter-rouge">1</code>,<code class="language-plaintext highlighter-rouge">2</code>,<code class="language-plaintext highlighter-rouge">3</code>이라고 한다.</p>
+<p>각각의 박스에는 <code class="language-plaintext highlighter-rouge">A</code>,<code class="language-plaintext highlighter-rouge">B</code>,<code class="language-plaintext highlighter-rouge">C</code>,<code class="language-plaintext highlighter-rouge">D</code>의 <strong>데이터</strong> 가 들어 있고 <strong>박스의 이름</strong> 은 <code class="language-plaintext highlighter-rouge">0</code>,<code class="language-plaintext highlighter-rouge">1</code>,<code class="language-plaintext highlighter-rouge">2</code>,<code class="language-plaintext highlighter-rouge">3</code>이라고 한다.</p>
 
 <p><strong>박스</strong> : 배열을 차지하는 하나의 요소가 필요한 공간이며 이는 데이터의 자료형에 따라 크기가 다르다.</p>
 
@@ -500,12 +500,12 @@
 <p><strong>Python STYLE</strong></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">expr_matrix</span><span class="o">=</span> <span class="p">[</span>
-      <span class="o">//</span><span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span><span class="p">,</span> <span class="n">gene3</span><span class="p">,</span> <span class="n">gene4</span>
-    <span class="p">[</span> <span class="mf">0.9</span><span class="p">,</span>   <span class="mf">0.27</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">,</span>   <span class="mf">0.6</span><span class="p">],</span> <span class="o">//</span> <span class="n">cell</span> <span class="n">A</span>
-    <span class="p">[</span> <span class="mf">0.7</span><span class="p">,</span>   <span class="mf">0.97</span><span class="p">,</span>  <span class="mf">0.6</span><span class="p">,</span>   <span class="mf">0.0</span><span class="p">],</span> <span class="o">//</span> <span class="n">cell</span> <span class="n">B</span>
-    <span class="p">[</span> <span class="mf">0.5</span><span class="p">,</span>   <span class="mf">0.37</span><span class="p">,</span>  <span class="mf">0.1</span><span class="p">,</span>   <span class="mf">0.8</span><span class="p">],</span> <span class="o">//</span> <span class="n">cell</span> <span class="n">C</span>
-    <span class="p">[</span> <span class="mf">0.8</span><span class="p">,</span>   <span class="mf">0.17</span><span class="p">,</span>  <span class="mf">0.4</span><span class="p">,</span>   <span class="mf">0.2</span><span class="p">]</span>  <span class="o">//</span> <span class="n">cell</span> <span class="n">D</span>
-<span class="p">]</span>
+    <span class="c1"># gene1, gene2, gene3, gene4
+</span>    <span class="p">[</span> <span class="mf">0.9</span><span class="p">,</span>   <span class="mf">0.27</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">,</span>   <span class="mf">0.6</span><span class="p">],</span> <span class="c1"># cell A
+</span>    <span class="p">[</span> <span class="mf">0.7</span><span class="p">,</span>   <span class="mf">0.97</span><span class="p">,</span>  <span class="mf">0.6</span><span class="p">,</span>   <span class="mf">0.0</span><span class="p">],</span> <span class="c1"># cell B
+</span>    <span class="p">[</span> <span class="mf">0.5</span><span class="p">,</span>   <span class="mf">0.37</span><span class="p">,</span>  <span class="mf">0.1</span><span class="p">,</span>   <span class="mf">0.8</span><span class="p">],</span> <span class="c1"># cell C
+</span>    <span class="p">[</span> <span class="mf">0.8</span><span class="p">,</span>   <span class="mf">0.17</span><span class="p">,</span>  <span class="mf">0.4</span><span class="p">,</span>   <span class="mf">0.2</span><span class="p">]</span>  <span class="c1"># cell D
+</span><span class="p">]</span>
 
 <span class="n">cellA</span> <span class="o">=</span> <span class="n">expr_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">gene2</span> <span class="o">=</span> <span class="p">[]</span>
@@ -523,7 +523,8 @@
 <span class="c1"># Reading matrix file
 </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"gene_expression.csv"</span><span class="p">)</span>
 
-<span class="c1"># convert to numpy matrix (pandas itself can do this but wanted to be clear)
+<span class="c1"># convert to numpy matrix 
+# (pandas itself can do this but wanted to be clear)
 </span><span class="n">matrix</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
 <span class="n">cellA</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -553,6 +554,10 @@
       
       
       <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%EB%B0%B0%EC%97%B4" class="page__taxonomy-item" rel="tag">배열</a><span class="sep">, </span>
     
       
       
@@ -609,7 +614,8 @@
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/programming/array-list/" class="pagination--pager" title="리스트(1) - 배열을 이용한 리스트
+">다음</a>
     
   </nav>
 
@@ -623,6 +629,35 @@
     <div class="page__related">
       <h4 class="page__related-title">참고</h4>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/programming/array-list/" rel="permalink">리스트(1) - 배열을 이용한 리스트
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 분 소요
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">리스트 는 이전 시간에 포스팅한 배열과 개념이 비슷하다.
+</p>
+  </article>
+</div>
+
         
           
 

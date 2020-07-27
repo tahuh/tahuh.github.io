@@ -1,0 +1,154 @@
+I"kG<p>지난 포스트에서 정리한 것은 <strong>배열을 이용한 리스트</strong> 의 구현법이다.</p>
+
+<p>이번 시간에는 <strong>물리적인 순서와 논리적인 순서가 다른 리스트</strong> 를 구현해 보고자 한다.</p>
+
+<p>이 방법의 장점은 배열을 미리 선언 하지 않기 때문에 배열의 크기가 곧 우리가 리스트에 가지고 있는 원소의 개수 만큼이 된다.</p>
+
+<p>즉, 메모리의 낭비가 없어진다.</p>
+
+<p>이 방법을 통해 “Single linked list”를 먼저 구현해 보고자 한다.</p>
+
+<p>아래에서 직접 구현해 보자</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// linkedlist.c</span>
+
+<span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="c1">// element type</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">elem_t</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">node_s</span>
+<span class="p">{</span>
+    <span class="n">elem_t</span> <span class="n">elem</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">node_s</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span><span class="n">node_t</span><span class="p">;</span>
+
+<span class="n">typdef</span> <span class="k">struct</span> <span class="n">linked_list_s</span>
+<span class="p">{</span>
+   <span class="kt">int</span> <span class="n">N</span><span class="p">;</span> <span class="c1">// number of elements in list</span>
+   <span class="n">node_t</span> <span class="o">*</span><span class="n">elements</span><span class="p">;</span>
+<span class="p">}</span><span class="n">ll_t</span><span class="p">;</span>
+
+<span class="n">ll_t</span> <span class="o">*</span><span class="nf">init_list</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ll_t</span> <span class="o">*</span><span class="n">l</span> <span class="o">=</span> <span class="p">(</span><span class="n">ll_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">ll_t</span><span class="p">));</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">l</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;}</span>
+    <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">l</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">destroy_list</span><span class="p">(</span><span class="n">ll_t</span> <span class="o">*</span><span class="n">l</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="o">*</span><span class="n">nn</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="p">){</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+               <span class="n">nn</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+               <span class="n">free</span><span class="p">(</span><span class="n">n</span><span class="p">);</span> 
+                <span class="n">n</span> <span class="o">=</span> <span class="n">nn</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">list_num_element</span><span class="p">(</span><span class="n">ll_t</span> <span class="o">*</span><span class="n">l</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">list_insert</span><span class="p">(</span><span class="n">ll_t</span> <span class="o">*</span><span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">loc</span><span class="p">,</span> <span class="n">elem_t</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">loc</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">loc</span> <span class="o">&gt;=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="p">){</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node_t</span><span class="p">));</span>
+            <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">elem</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+            <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">loc</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">node_t</span> <span class="o">*</span><span class="n">newnode</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node_t</span><span class="p">));</span>
+            <span class="n">newnode</span><span class="o">-&gt;</span><span class="n">elem</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+            <span class="n">newnode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="p">;</span>
+    <span class="p">}</span> 
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">list_remove</span><span class="p">(</span><span class="n">ll_t</span> <span class="o">*</span><span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">loc</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">ret</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">loc</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">loc</span> <span class="o">&gt;=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="p">){</span>
+        <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">loc</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">node_t</span> <span class="o">*</span><span class="n">target</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">node_t</span> <span class="o">*</span><span class="n">next_target</span> <span class="o">=</span> <span class="n">target</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">next_target</span><span class="p">;</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">target</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="o">--</span><span class="p">;</span>
+        <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">list_append</span><span class="p">(</span><span class="n">ll_t</span> <span class="o">*</span><span class="n">l</span><span class="p">,</span> <span class="n">elem_t</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node_t</span><span class="p">));</span>
+          <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+          <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">elem</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="c1">// this can be optimized if we use alternate pointer in struct</span>
+          <span class="k">return</span> <span class="n">list_insert</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">elem_t</span> <span class="nf">list_at</span><span class="p">(</span><span class="n">ll_t</span> <span class="o">*</span><span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">loc</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">ret</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">loc</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>위의 리스트의 구현은 사실 최적화를 더 할 수 있으나 일단은 구현 않는다.</p>
+
+<p>다음시간에는 이중연결리스트를 구현해 보도록한다</p>
+:ET

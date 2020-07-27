@@ -28,4 +28,10 @@ var store = [{
         "tags": ["programming","자료구조","리스트"],
         "url": "http://localhost:4000/programming/array-list/",
         "teaser": null
+      },{
+        "title": "리스트(2) - 배열을 사용하지 않는 리스트",
+        "excerpt":"지난 포스트에서 정리한 것은 배열을 이용한 리스트 의 구현법이다. 이번 시간에는 물리적인 순서와 논리적인 순서가 다른 리스트 를 구현해 보고자 한다. 이 방법의 장점은 배열을 미리 선언 하지 않기 때문에 배열의 크기가 곧 우리가 리스트에 가지고 있는 원소의 개수 만큼이 된다. 즉, 메모리의 낭비가 없어진다. 이 방법을 통해 “Single linked...","categories": ["programming"],
+        "tags": ["자료구조","programming","리스트"],
+        "url": "http://localhost:4000/programming/linked-list/",
+        "teaser": null
       }]

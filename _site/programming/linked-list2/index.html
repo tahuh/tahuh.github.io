@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>리스트(2) - 배열을 사용하지 않는 리스트 - Things to study</title>
-<meta name="description" content="지난 포스트에서 정리한 것은 배열을 이용한 리스트 의 구현법이다.">
+<!-- begin _includes/seo.html --><title>리스트(3) - 배열을 사용하지 않는 리스트 - Things to study</title>
+<meta name="description" content="지난 포스트에서 정리한 것은 Single linked list 를 구현해 보았다.">
 
 
   <meta name="author" content="Thomas Sunghoon Heo">
@@ -19,30 +19,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Things to study">
-<meta property="og:title" content="리스트(2) - 배열을 사용하지 않는 리스트">
-<meta property="og:url" content="http://localhost:4000/programming/linked-list/">
+<meta property="og:title" content="리스트(3) - 배열을 사용하지 않는 리스트">
+<meta property="og:url" content="http://localhost:4000/programming/linked-list2/">
 
 
-  <meta property="og:description" content="지난 포스트에서 정리한 것은 배열을 이용한 리스트 의 구현법이다.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2020-07-27T00:00:00+09:00">
+  <meta property="og:description" content="지난 포스트에서 정리한 것은 Single linked list 를 구현해 보았다.">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2020-07-28T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/programming/linked-list/">
+
+<link rel="canonical" href="http://localhost:4000/programming/linked-list2/">
 
 
 
@@ -276,15 +276,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="리스트(2) - 배열을 사용하지 않는 리스트">
-    <meta itemprop="description" content="지난 포스트에서 정리한 것은 배열을 이용한 리스트 의 구현법이다.">
-    <meta itemprop="datePublished" content="2020-07-27T00:00:00+09:00">
+    <meta itemprop="headline" content="리스트(3) - 배열을 사용하지 않는 리스트">
+    <meta itemprop="description" content="지난 포스트에서 정리한 것은 Single linked list 를 구현해 보았다.">
+    <meta itemprop="datePublished" content="2020-07-28T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">리스트(2) - 배열을 사용하지 않는 리스트
+          <h1 id="page-title" class="page__title" itemprop="headline">리스트(3) - 배열을 사용하지 않는 리스트
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -301,17 +301,11 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>지난 포스트에서 정리한 것은 <strong>배열을 이용한 리스트</strong> 의 구현법이다.</p>
+        <p>지난 포스트에서 정리한 것은 <strong>Single linked list</strong> 를 구현해 보았다.</p>
 
-<p>이번 시간에는 <strong>물리적인 순서와 논리적인 순서가 다른 리스트</strong> 를 구현해 보고자 한다.</p>
+<p>이번 시간에는 <strong>Double linked list</strong> 를 구현해 보고자 한다.</p>
 
-<p>이 방법의 장점은 배열을 미리 선언 하지 않기 때문에 배열의 크기가 곧 우리가 리스트에 가지고 있는 원소의 개수 만큼이 된다.</p>
-
-<p>즉, 메모리의 낭비가 없어진다.</p>
-
-<p>이 방법을 통해 “Single linked list”를 먼저 구현해 보고자 한다.</p>
-
-<p>아래에서 직접 구현해 보자</p>
+<p>이전과 차이점은 node의 다음을 나타내는 pointer와 전단을 나타내는 pointer 이렇게 2개가 존재 한다는 것이다.</p>
 
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="c1">// linkedlist.c</span>
@@ -326,6 +320,7 @@
 <span class="p">{</span>
     <span class="n">elem_t</span> <span class="n">elem</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">node_s</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">node_s</span> <span class="o">*</span><span class="n">prev</span><span class="p">;</span> <span class="c1">// newly added!</span>
 <span class="p">}</span><span class="n">node_t</span><span class="p">;</span>
 
 <span class="n">typdef</span> <span class="k">struct</span> <span class="n">linked_list_s</span>
@@ -376,6 +371,7 @@
             <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node_t</span><span class="p">));</span>
             <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">elem</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
             <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+            <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="n">n</span> <span class="o">=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="p">;</span>
             <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">loc</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
@@ -384,6 +380,8 @@
             <span class="n">node_t</span> <span class="o">*</span><span class="n">newnode</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node_t</span><span class="p">));</span>
             <span class="n">newnode</span><span class="o">-&gt;</span><span class="n">elem</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
             <span class="n">newnode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">n</span><span class="o">-&gt;</span><span class="n">prex</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
+            <span class="n">newnode</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
             <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="o">++</span><span class="p">;</span>
@@ -413,6 +411,7 @@
             <span class="n">node_t</span> <span class="o">*</span><span class="n">target</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
             <span class="n">node_t</span> <span class="o">*</span><span class="n">next_target</span> <span class="o">=</span> <span class="n">target</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
             <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">next_target</span><span class="p">;</span>
+            <span class="n">next_target</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
             <span class="n">free</span><span class="p">(</span><span class="n">target</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="n">l</span><span class="o">-&gt;</span><span class="n">N</span><span class="o">--</span><span class="p">;</span>
@@ -429,6 +428,7 @@
         <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="p">)</span> <span class="p">{</span>
           <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node_t</span><span class="p">));</span>
           <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+          <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
           <span class="n">l</span><span class="o">-&gt;</span><span class="n">elements</span><span class="o">-&gt;</span><span class="n">elem</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
           <span class="c1">// this can be optimized if we use alternate pointer in struct</span>
@@ -453,7 +453,8 @@
 
 <p>위의 리스트의 구현은 사실 최적화를 더 할 수 있으나 일단은 구현 않는다.</p>
 
-<p>다음시간에는 이중연결리스트를 구현해 보도록한다</p>
+<p>다음 시간에는 많이 쓰는 자료형인 스택(Stack)을 구현 해 본다</p>
+
 
         
       </section>
@@ -510,7 +511,7 @@
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-07-27T00:00:00+09:00">July 27, 2020</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-07-28T00:00:00+09:00">July 28, 2020</time></p>
 
 
       </footer>
@@ -520,23 +521,22 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%EB%A6%AC%EC%8A%A4%ED%8A%B8%282%29+-+%EB%B0%B0%EC%97%B4%EC%9D%84+%EC%82%AC%EC%9A%A9%ED%95%98%EC%A7%80+%EC%95%8A%EB%8A%94+%EB%A6%AC%EC%8A%A4%ED%8A%B8%20http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Flinked-list%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%EB%A6%AC%EC%8A%A4%ED%8A%B8%283%29+-+%EB%B0%B0%EC%97%B4%EC%9D%84+%EC%82%AC%EC%9A%A9%ED%95%98%EC%A7%80+%EC%95%8A%EB%8A%94+%EB%A6%AC%EC%8A%A4%ED%8A%B8%20http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Flinked-list2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Flinked-list%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Flinked-list2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Flinked-list%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Flinked-list2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/programming/array-list/" class="pagination--pager" title="리스트(1) - 배열을 이용한 리스트
+      <a href="/programming/linked-list/" class="pagination--pager" title="리스트(2) - 배열을 사용하지 않는 리스트
 ">이전</a>
     
     
-      <a href="/programming/linked-list2/" class="pagination--pager" title="리스트(3) - 배열을 사용하지 않는 리스트
-">다음</a>
+      <a href="#" class="pagination--pager disabled">다음</a>
     
   </nav>
 
@@ -560,7 +560,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/programming/linked-list2/" rel="permalink">리스트(3) - 배열을 사용하지 않는 리스트
+        <a href="/programming/linked-list/" rel="permalink">리스트(2) - 배열을 사용하지 않는 리스트
 </a>
       
     </h2>
@@ -570,11 +570,11 @@
 
 
 
-  1 분 소요
+  2 분 소요
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">지난 포스트에서 정리한 것은 Single linked list 를 구현해 보았다.
+    <p class="archive__item-excerpt" itemprop="description">지난 포스트에서 정리한 것은 배열을 이용한 리스트 의 구현법이다.
 </p>
   </article>
 </div>

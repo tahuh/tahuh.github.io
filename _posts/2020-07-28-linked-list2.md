@@ -1,5 +1,5 @@
 ---
-title: 리스트(2) - 배열을 사용하지 않는 리스트
+title: 리스트(3) - 배열을 사용하지 않는 리스트
 categories:
   - programming
 tags:

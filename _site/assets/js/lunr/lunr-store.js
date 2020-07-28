@@ -34,4 +34,10 @@ var store = [{
         "tags": ["자료구조","programming","리스트"],
         "url": "http://localhost:4000/programming/linked-list/",
         "teaser": null
+      },{
+        "title": "리스트(3) - 배열을 사용하지 않는 리스트",
+        "excerpt":"지난 포스트에서 정리한 것은 Single linked list 를 구현해 보았다. 이번 시간에는 Double linked list 를 구현해 보고자 한다. 이전과 차이점은 node의 다음을 나타내는 pointer와 전단을 나타내는 pointer 이렇게 2개가 존재 한다는 것이다. // linkedlist.c #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;string.h&gt; // element type typedef int elem_t; typedef struct node_s...","categories": ["programming"],
+        "tags": ["자료구조","programming","리스트"],
+        "url": "http://localhost:4000/programming/linked-list2/",
+        "teaser": null
       }]

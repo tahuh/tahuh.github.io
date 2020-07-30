@@ -1,0 +1,782 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>스택 - Things to study</title>
+<meta name="description" content="지난 번 포스팅을 통해 리스트 자료 구조를 구현해 보았다.">
+
+
+  <meta name="author" content="Thomas Sunghoon Heo">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Things to study">
+<meta property="og:title" content="스택">
+<meta property="og:url" content="http://localhost:4000/programming/stack/">
+
+
+  <meta property="og:description" content="지난 번 포스팅을 통해 리스트 자료 구조를 구현해 보았다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-07-30T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/programming/stack/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Thomas Sunghoon Heo",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Things to study Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          연구하는 개발자의 개인 도서관
+          <span class="site-subtitle">Playground</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/">Quick-Start Guide</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/">Post</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Thomas Sunghoon Heo</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Chemistry 전공하다가 우연히 Bioinformatics를 하게된 사람입니다. <br />혹시 틀린 부분 있거나 더 좋은 부분 있으면 알려주세요</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:tahuh1124@gmail.com">
+            <meta itemprop="email" content="tahuh1124@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="스택">
+    <meta itemprop="description" content="지난 번 포스팅을 통해 리스트 자료 구조를 구현해 보았다.">
+    <meta itemprop="datePublished" content="2020-07-30T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">스택
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 분 소요
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>지난 번 포스팅을 통해 <strong>리스트</strong> 자료 구조를 구현해 보았다.</p>
+
+<p>이번에는 정말 자주 사용되는 자료 구조중의 하나인 <strong>스택(stack)</strong> 을 구현하고자 한다.</p>
+
+<p>Stack을 영여 사전에서 찾아보면 다음과 같다</p>
+
+<blockquote>
+  <p>stack
+<i>noun</i> [c]
+UK  /stæk/ US  /stæk/
+a pile of things arranged one on top of another</p>
+  <ul>
+    <li>He chose a cartoon from the stack of DVDs on the shelf.
+출처 : Cambridge dictionary</li>
+  </ul>
+</blockquote>
+
+<p>설명 그 대로 다른 물건 위에 또 다른 물건이 놓여있는, 즉 <strong>쌓여 있는</strong> , 무더기(pile)이고 stack 자료 구조는 이 형태를 그대로 따른다.</p>
+
+<p>그림을 보면 다음과 같다.</p>
+
+<p><img src="http://localhost:4000/assets/images/stack.png" alt="alt" /></p>
+
+<p>첨부한 그림처럼 stack을 물건을 하나씩 쌓아 두는 자료형이다.</p>
+
+<p>가령 우리가 책꽃이에 책을 다 채워 두고서 또 책을 사서 더 이상 둘 곳이 없는 상황이 벌어졌다고 하자.</p>
+
+<p>이때 책을 보관할 곳의 하나의 좋은 예는 “바닥”이 될 것이다.</p>
+
+<p>그리고 이 바닥에 아무렇게나 책을 두면 너무 어지럽고 공간을 많이 차지하게 될 것이기 때문에 바닥 한 곳에 책을 두고 그 위로 쌓아 올리기로 한다.</p>
+
+<p>이 때 이 “쌓는 행위(<code class="language-plaintext highlighter-rouge">push</code>)”가 바로 stack이란 단어의 한국어 설명이며 컴퓨터 자료구조에서는 이러한 행동을 하는 것을 “stack data structure”라고 한다.</p>
+
+<p>그리고 이제 쌓여있는 책 더미에서 중간 정도에 있는 책을 골라서 빼낸다고 하자.</p>
+
+<p>물론 적당한 높이의 책이라면 책 더미가 안 넘어지게 유지 하면서 가운데 책을 뺄 수 있을 것이다.</p>
+
+<p>그런데 그렇지 않다면 어떻게 꺼내야 할까?</p>
+
+<p>바닥이 막혀 있기 때문에 결국은 쌓아둔 위쪽 부터 제거(<code class="language-plaintext highlighter-rouge">pop</code>)를 해야 한다.</p>
+
+<p>이렇게 stack처럼 맨 나중에 더해진 원소가 제일 처음 제거되는 방법을 <code class="language-plaintext highlighter-rouge">LIFO - Last In First Out</code> 이라고 한다.</p>
+
+<p>소방관 님들의 First In Last Out과는 완전 반대 구조이다. <strong>소방관 님들 존경합니다</strong></p>
+
+<p>이제 본격적으로 Stack을 구현해 보고자 한다.</p>
+
+<p>Stack에 사용될 연산은 다음과 같다.</p>
+
+<ul>
+  <li>스택의 생성</li>
+  <li>스택의 제거</li>
+  <li>스택에 들어 있는 원소의 개수</li>
+</ul>
+
+<p>그리고 스택에만 있는 특이한 연산인 <code class="language-plaintext highlighter-rouge">top</code> 과 <code class="language-plaintext highlighter-rouge">pop</code> 연산이 있다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">top</code> - <code class="language-plaintext highlighter-rouge">Stack의 제일 위에 있는 원소를 가르킨다</code>
+<code class="language-plaintext highlighter-rouge">pop</code> - <code class="language-plaintext highlighter-rouge">Stack의 제일 위에 있는 원소를 가져오고 현재 stack에서 제거</code>
+<code class="language-plaintext highlighter-rouge">push</code> - <code class="language-plaintext highlighter-rouge">Stack의 위에 쌓아 올린다</code></p>
+
+<p>Stack은 배열과 linked list 모두로 구현가능 하지만 linked list로 여기서는 구현한다.</p>
+
+<p>이번 포스트에서는 stack을 <code class="language-plaintext highlighter-rouge">C</code>와 <code class="language-plaintext highlighter-rouge">Python</code> 모두로 구현해 본다.</p>
+
+<p><strong>C Implementation</strong></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// stack.c</span>
+
+<span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">elem_t</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">node_s</span>
+<span class="p">{</span>
+    <span class="n">elem_t</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">node_s</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span><span class="n">node_t</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">stack_s</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// number of elements in a stack</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">top</span><span class="p">;</span>
+<span class="p">}</span><span class="n">stack_t</span><span class="p">;</span>
+
+
+<span class="n">stack_t</span> <span class="o">*</span><span class="nf">stack_init</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">stack_t</span><span class="p">));</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">stack_destroy</span><span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">nn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">){</span>
+       <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="p">){</span>
+           <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="p">;</span>
+           <span class="k">while</span><span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+               <span class="n">nn</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+               <span class="n">free</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+               <span class="n">n</span> <span class="o">=</span> <span class="n">nn</span><span class="p">;</span>
+           <span class="p">}</span>
+       <span class="p">}</span>
+       <span class="n">free</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">stack_num_elements</span><span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">n</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">elem_t</span> <span class="nf">stack_top</span><span class="p">(</span><span class="n">stack_t</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">ret</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">elem_t</span> <span class="nf">stack_pop</span><span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">ret</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">nn</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">elem_t</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+             <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+             <span class="n">nn</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+             <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">=</span> <span class="n">nn</span><span class="p">;</span>
+             <span class="n">v</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">;</span>
+             <span class="n">free</span><span class="p">(</span><span class="n">n</span><span class="p">);</span> <span class="c1">// delete</span>
+             <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+             <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+             <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">stack_push</span><span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">elem_t</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">){</span>
+        <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node_t</span><span class="p">));</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">n</span><span class="o">-&gt;</span><span class="n">v</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+        <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">//    top -&gt; a -&gt; b -&gt; c</span>
+            <span class="c1">//        n</span>
+            <span class="c1">//    n-&gt; top -&gt; a -&gt; b -&gt; c</span>
+            <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="p">;</span>
+            <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">s</span><span class="o">-&gt;</span><span class="n">N</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">N</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Python Implementation</strong>_</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1"># No init or destroy required for python
+# Just create using 
+# stack = Stack()
+# After program terminates, GC of python will clear memory
+</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">v</span>
+	<span class="k">def</span> <span class="nf">top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+	<span class="k">def</span> <span class="nf">num_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>다음 시간에는 Stack의 연산의 반대인 큐(Queue)를 구현해 본다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%EC%8A%A4%ED%83%9D" class="page__taxonomy-item" rel="tag">스택</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0" class="page__taxonomy-item" rel="tag">자료구조</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#programming" class="page__taxonomy-item" rel="tag">programming</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-07-30T00:00:00+09:00">July 30, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EC%8A%A4%ED%83%9D%20http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fstack%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fstack%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fstack%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/programming/linked-list2/" class="pagination--pager" title="리스트(3) - 배열을 사용하지 않는 리스트
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/programming/linked-list2/" rel="permalink">리스트(3) - 배열을 사용하지 않는 리스트
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 분 소요
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">지난 포스트에서 정리한 것은 Single linked list 를 구현해 보았다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/programming/linked-list/" rel="permalink">리스트(2) - 배열을 사용하지 않는 리스트
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 분 소요
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">지난 포스트에서 정리한 것은 배열을 이용한 리스트 의 구현법이다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/programming/array-list/" rel="permalink">리스트(1) - 배열을 이용한 리스트
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  4 분 소요
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">리스트 는 이전 시간에 포스팅한 배열과 개념이 비슷하다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/programming/data-structure-array/" rel="permalink">자료구조(1) - 배열(Array)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  4 분 소요
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Thomas Sunghoon Heo. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

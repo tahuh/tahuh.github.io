@@ -1,0 +1,208 @@
+I"�F<p>지난 번 포스팅을 통해 <strong>리스트</strong> 자료 구조를 구현해 보았다.</p>
+
+<p>이번에는 정말 자주 사용되는 자료 구조중의 하나인 <strong>스택(stack)</strong> 을 구현하고자 한다.</p>
+
+<p>Stack을 영여 사전에서 찾아보면 다음과 같다</p>
+
+<blockquote>
+  <p>stack
+<i>noun</i> [c]
+UK  /stæk/ US  /stæk/
+a pile of things arranged one on top of another</p>
+  <ul>
+    <li>He chose a cartoon from the stack of DVDs on the shelf.
+출처 : Cambridge dictionary</li>
+  </ul>
+</blockquote>
+
+<p>설명 그 대로 다른 물건 위에 또 다른 물건이 놓여있는, 즉 <strong>쌓여 있는</strong> , 무더기(pile)이고 stack 자료 구조는 이 형태를 그대로 따른다.</p>
+
+<p>그림을 보면 다음과 같다.</p>
+
+<p><img src="http://localhost:4000/assets/images/stack.png" alt="alt" /></p>
+
+<p>첨부한 그림처럼 stack을 물건을 하나씩 쌓아 두는 자료형이다.</p>
+
+<p>가령 우리가 책꽃이에 책을 다 채워 두고서 또 책을 사서 더 이상 둘 곳이 없는 상황이 벌어졌다고 하자.</p>
+
+<p>이때 책을 보관할 곳의 하나의 좋은 예는 “바닥”이 될 것이다.</p>
+
+<p>그리고 이 바닥에 아무렇게나 책을 두면 너무 어지럽고 공간을 많이 차지하게 될 것이기 때문에 바닥 한 곳에 책을 두고 그 위로 쌓아 올리기로 한다.</p>
+
+<p>이 때 이 “쌓는 행위(<code class="language-plaintext highlighter-rouge">push</code>)”가 바로 stack이란 단어의 한국어 설명이며 컴퓨터 자료구조에서는 이러한 행동을 하는 것을 “stack data structure”라고 한다.</p>
+
+<p>그리고 이제 쌓여있는 책 더미에서 중간 정도에 있는 책을 골라서 빼낸다고 하자.</p>
+
+<p>물론 적당한 높이의 책이라면 책 더미가 안 넘어지게 유지 하면서 가운데 책을 뺄 수 있을 것이다.</p>
+
+<p>그런데 그렇지 않다면 어떻게 꺼내야 할까?</p>
+
+<p>바닥이 막혀 있기 때문에 결국은 쌓아둔 위쪽 부터 제거(<code class="language-plaintext highlighter-rouge">pop</code>)를 해야 한다.</p>
+
+<p>이렇게 stack처럼 맨 나중에 더해진 원소가 제일 처음 제거되는 방법을 <code class="language-plaintext highlighter-rouge">LIFO - Last In First Out</code> 이라고 한다.</p>
+
+<p>소방관 님들의 First In Last Out과는 완전 반대 구조이다. <strong>소방관 님들 존경합니다</strong></p>
+
+<p>이제 본격적으로 Stack을 구현해 보고자 한다.</p>
+
+<p>Stack에 사용될 연산은 다음과 같다.</p>
+
+<ul>
+  <li>스택의 생성</li>
+  <li>스택의 제거</li>
+  <li>스택에 들어 있는 원소의 개수</li>
+</ul>
+
+<p>그리고 스택에만 있는 특이한 연산인 <code class="language-plaintext highlighter-rouge">top</code> 과 <code class="language-plaintext highlighter-rouge">pop</code> 연산이 있다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">top</code> - <code class="language-plaintext highlighter-rouge">Stack의 제일 위에 있는 원소를 가르킨다</code>
+<code class="language-plaintext highlighter-rouge">pop</code> - <code class="language-plaintext highlighter-rouge">Stack의 제일 위에 있는 원소를 가져오고 현재 stack에서 제거</code>
+<code class="language-plaintext highlighter-rouge">push</code> - <code class="language-plaintext highlighter-rouge">Stack의 위에 쌓아 올린다</code></p>
+
+<p>Stack은 배열과 linked list 모두로 구현가능 하지만 linked list로 여기서는 구현한다.</p>
+
+<p>이번 포스트에서는 stack을 <code class="language-plaintext highlighter-rouge">C</code>와 <code class="language-plaintext highlighter-rouge">Python</code> 모두로 구현해 본다.</p>
+
+<p><strong>C Implementation</strong></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// stack.c</span>
+
+<span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">elem_t</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">node_s</span>
+<span class="p">{</span>
+    <span class="n">elem_t</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">node_s</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span><span class="n">node_t</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">stack_s</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// number of elements in a stack</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">top</span><span class="p">;</span>
+<span class="p">}</span><span class="n">stack_t</span><span class="p">;</span>
+
+
+<span class="n">stack_t</span> <span class="o">*</span><span class="nf">stack_init</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">stack_t</span><span class="p">));</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">stack_destroy</span><span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">nn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">){</span>
+       <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="p">){</span>
+           <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="p">;</span>
+           <span class="k">while</span><span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+               <span class="n">nn</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+               <span class="n">free</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+               <span class="n">n</span> <span class="o">=</span> <span class="n">nn</span><span class="p">;</span>
+           <span class="p">}</span>
+       <span class="p">}</span>
+       <span class="n">free</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">stack_num_elements</span><span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">n</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">elem_t</span> <span class="nf">stack_top</span><span class="p">(</span><span class="n">stack_t</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">ret</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">elem_t</span> <span class="nf">stack_pop</span><span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">ret</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">nn</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">elem_t</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+             <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+             <span class="n">nn</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+             <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">=</span> <span class="n">nn</span><span class="p">;</span>
+             <span class="n">v</span> <span class="o">=</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">;</span>
+             <span class="n">free</span><span class="p">(</span><span class="n">n</span><span class="p">);</span> <span class="c1">// delete</span>
+             <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+             <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+             <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">stack_push</span><span class="p">(</span><span class="n">stack_t</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">elem_t</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">){</span>
+        <span class="n">node_t</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node_t</span><span class="p">));</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">n</span><span class="o">-&gt;</span><span class="n">v</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+        <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">//    top -&gt; a -&gt; b -&gt; c</span>
+            <span class="c1">//        n</span>
+            <span class="c1">//    n-&gt; top -&gt; a -&gt; b -&gt; c</span>
+            <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span><span class="p">;</span>
+            <span class="n">s</span><span class="o">-&gt;</span><span class="n">top</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">s</span><span class="o">-&gt;</span><span class="n">N</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">N</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Python Implementation</strong>_</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1"># No init or destroy required for python
+# Just create using 
+# stack = Stack()
+# After program terminates, GC of python will clear memory
+</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">v</span>
+	<span class="k">def</span> <span class="nf">top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+	<span class="k">def</span> <span class="nf">num_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">s</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>다음 시간에는 Stack의 연산의 반대인 큐(Queue)를 구현해 본다.</p>
+:ET

@@ -40,4 +40,10 @@ var store = [{
         "tags": ["자료구조","programming","리스트"],
         "url": "http://localhost:4000/programming/linked-list2/",
         "teaser": null
+      },{
+        "title": "스택",
+        "excerpt":"지난 번 포스팅을 통해 리스트 자료 구조를 구현해 보았다. 이번에는 정말 자주 사용되는 자료 구조중의 하나인 스택(stack) 을 구현하고자 한다. Stack을 영여 사전에서 찾아보면 다음과 같다 stack noun [c] UK /stæk/ US /stæk/ a pile of things arranged one on top of another He chose a cartoon from the stack...","categories": ["programming"],
+        "tags": ["programming","자료구조","스택"],
+        "url": "http://localhost:4000/programming/stack/",
+        "teaser": null
       }]
